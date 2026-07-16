@@ -27,7 +27,12 @@
       "Skill(artifact-design)",
       "Skill(artifact-design:*)",
       "Bash(curl -s http://localhost:3000 -o /tmp/page2.html -w \"%{http_code}\\\\n\")",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "PowerShell(winget install --id GitHub.cli -e --accept-source-agreements --accept-package-agreements)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh --version)",
+      "Bash(git push *)"
     ]
   }
 }
