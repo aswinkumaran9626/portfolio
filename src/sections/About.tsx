@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Code2, Sparkles, Target } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -11,9 +12,9 @@ import { SITE } from "@/constants/site";
 import { fadeUp, fadeIn, staggerContainer, floatAnimation } from "@/lib/motion";
 
 const STATS = [
-  { label: "Projects Built", value: 10, suffix: "+" },
-  { label: "Technologies Learned", value: 20, suffix: "+" },
-  { label: "Years Learning", value: 3, suffix: "+" },
+  { label: "Projects Built", value: 3, suffix: "+" },
+  { label: "Technologies Learned", value: 7, suffix: "+" },
+  { label: "Months Learning", value: 4, suffix: "+" },
 ];
 
 const HIGHLIGHTS = [
@@ -35,8 +36,15 @@ const HIGHLIGHTS = [
 ];
 
 export function About() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const avatarY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
   return (
-    <section id="about" className="relative px-4 py-24">
+    <section id="about" ref={sectionRef} className="relative px-4 py-24">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           eyebrow="About Me"
@@ -50,6 +58,7 @@ export function About() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
+            style={{ y: avatarY }}
             className="flex flex-col items-center gap-6"
           >
             <motion.div animate={floatAnimation}>

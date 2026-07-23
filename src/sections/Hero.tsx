@@ -135,7 +135,7 @@ export function Hero() {
           <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Button
               size="lg"
-              className="group relative overflow-hidden rounded-full px-8 shadow-[0_0_30px_-8px_rgba(124,58,237,0.7)] transition-shadow duration-300 hover:shadow-[0_0_45px_-6px_rgba(124,58,237,0.9)]"
+              className="group relative overflow-hidden rounded-full px-8 shadow-[0_0_30px_-8px_rgba(56,189,248,0.7)] transition-shadow duration-300 hover:shadow-[0_0_45px_-6px_rgba(56,189,248,0.9)]"
               nativeButton={false}
               render={
                 <a href="#projects">
@@ -176,7 +176,7 @@ export function Hero() {
                 height={480}
                 priority
                 unoptimized
-                className="w-[22rem] object-contain drop-shadow-[0_20px_60px_rgba(124,58,237,0.35)] xl:w-[26rem]"
+                className="w-[22rem] object-contain drop-shadow-[0_20px_60px_rgba(56,189,248,0.35)] xl:w-[26rem]"
               />
             </ShockwaveHover>
           </motion.div>

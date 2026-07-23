@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { SKILL_CATEGORIES } from "@/constants/skills";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { GlassCard } from "@/components/shared/GlassCard";
@@ -9,8 +10,15 @@ import { SkillBar } from "@/components/shared/SkillBar";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function Skills() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const gridY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+
   return (
-    <section id="skills" className="relative px-4 py-24">
+    <section id="skills" ref={sectionRef} className="relative px-4 py-24">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           eyebrow="Skills"
@@ -23,6 +31,7 @@ export function Skills() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
+          style={{ y: gridY }}
           className="mt-16 grid gap-6 sm:grid-cols-2"
         >
           {SKILL_CATEGORIES.map((category) => (

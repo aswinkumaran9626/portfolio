@@ -78,7 +78,7 @@ export function Contact() {
                 width={320}
                 height={320}
                 unoptimized
-                className="w-full object-contain drop-shadow-[0_16px_40px_rgba(124,58,237,0.3)]"
+                className="w-full object-contain drop-shadow-[0_16px_40px_rgba(56,189,248,0.3)]"
               />
             </motion.div>
 
@@ -115,7 +115,7 @@ export function Contact() {
                     id="name"
                     value={values.name}
                     onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
-                    className="border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(124,58,237,0.25)]"
+                    className="border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(56,189,248,0.25)]"
                     placeholder="Your name"
                   />
                   {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
@@ -128,7 +128,7 @@ export function Contact() {
                     type="email"
                     value={values.email}
                     onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
-                    className="border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(124,58,237,0.25)]"
+                    className="border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(56,189,248,0.25)]"
                     placeholder="you@example.com"
                   />
                   {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
@@ -140,7 +140,7 @@ export function Contact() {
                     id="message"
                     value={values.message}
                     onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))}
-                    className="min-h-32 border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(124,58,237,0.25)]"
+                    className="min-h-32 border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(56,189,248,0.25)]"
                     placeholder="Tell me about your project..."
                   />
                   {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}

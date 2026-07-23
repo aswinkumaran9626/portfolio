@@ -23,7 +23,7 @@ export function SocialLinks({ className }: SocialLinksProps) {
           target={href.startsWith("mailto:") ? undefined : "_blank"}
           rel="noreferrer"
           aria-label={label}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_-6px_rgba(124,58,237,0.6)]"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_-6px_rgba(56,189,248,0.6)]"
         >
           <Icon className="h-4 w-4" aria-hidden="true" />
         </a>
