@@ -1,22 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Code2, Sparkles, Target } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { GlassCard } from "@/components/shared/GlassCard";
-import { fadeUp, fadeIn, staggerContainer } from "@/lib/motion";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
+import { SITE } from "@/constants/site";
+import { fadeUp, fadeIn, staggerContainer, floatAnimation } from "@/lib/motion";
 
 const STATS = [
-  { label: "Projects Built", value: "10+" },
-  { label: "Technologies Learned", value: "20+" },
-  { label: "Years Learning", value: "3+" },
+  { label: "Projects Built", value: 10, suffix: "+" },
+  { label: "Technologies Learned", value: 20, suffix: "+" },
+  { label: "Years Learning", value: 3, suffix: "+" },
 ];
 
 const HIGHLIGHTS = [
   {
     icon: Code2,
     title: "Developer Journey",
-    text: "I started out building small web tools and quickly moved into full stack and mobile development, learning by shipping real products for real users.",
+    text: `I started out building small web tools and quickly moved into full stack and mobile development, learning by shipping real products for real users. Today I build under ${SITE.company}, my own dev studio, where I take on projects end to end.`,
   },
   {
     icon: Sparkles,
@@ -48,9 +52,21 @@ export function About() {
             viewport={{ once: true, amount: 0.3 }}
             className="flex flex-col items-center gap-6"
           >
-            <div className="glass-card relative flex h-56 w-56 items-center justify-center rounded-3xl text-5xl font-semibold text-primary sm:h-64 sm:w-64">
-              AB
-            </div>
+            <motion.div animate={floatAnimation}>
+              <TiltCard maxTilt={14} className="rounded-3xl">
+                <div className="glass-card relative flex h-56 w-56 items-end justify-center overflow-hidden rounded-3xl sm:h-64 sm:w-64">
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+                  <Image
+                    src="/avatar/portrait.png"
+                    alt="Portrait of Aswin BalaKumaran wearing a Vibronlabz hoodie"
+                    width={256}
+                    height={256}
+                    unoptimized
+                    className="h-full w-full object-cover object-top"
+                  />
+                </div>
+              </TiltCard>
+            </motion.div>
 
             <motion.div
               variants={staggerContainer(0.1)}
@@ -62,7 +78,11 @@ export function About() {
               {STATS.map((stat) => (
                 <motion.div key={stat.label} variants={fadeUp}>
                   <GlassCard className="flex flex-col items-center gap-1 p-4 text-center">
-                    <span className="text-xl font-bold text-primary sm:text-2xl">{stat.value}</span>
+                    <AnimatedCounter
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      className="text-xl font-bold text-primary sm:text-2xl"
+                    />
                     <span className="text-xs text-muted-foreground">{stat.label}</span>
                   </GlassCard>
                 </motion.div>
@@ -79,15 +99,17 @@ export function About() {
           >
             {HIGHLIGHTS.map(({ icon: Icon, title, text }) => (
               <motion.div key={title} variants={fadeUp}>
-                <GlassCard className="flex gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{text}</p>
-                  </div>
-                </GlassCard>
+                <TiltCard maxTilt={4} className="rounded-2xl">
+                  <GlassCard className="flex gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">{title}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+                    </div>
+                  </GlassCard>
+                </TiltCard>
               </motion.div>
             ))}
           </motion.div>

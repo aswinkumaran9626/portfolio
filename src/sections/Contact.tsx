@@ -1,18 +1,20 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 import { SITE } from "@/constants/site";
 import { contactFormSchema, ContactFormErrors } from "@/lib/validations";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { GlassCard } from "@/components/shared/GlassCard";
+import { TiltCard } from "@/components/shared/TiltCard";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { fadeUp, staggerContainer } from "@/lib/motion";
+import { fadeUp, staggerContainer, floatAnimation } from "@/lib/motion";
 
 const CONTACT_CARDS = [
   { icon: Mail, label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
@@ -64,18 +66,38 @@ export function Contact() {
             viewport={{ once: true, amount: 0.3 }}
             className="flex flex-col gap-4"
           >
+            <motion.div
+              variants={fadeUp}
+              animate={floatAnimation}
+              className="relative mx-auto mb-4 hidden w-48 sm:block"
+            >
+              <div className="absolute inset-0 -z-10 scale-90 rounded-full bg-gradient-to-br from-primary/25 to-secondary/25 blur-[60px]" />
+              <Image
+                src="/avatar/confident-pose.png"
+                alt="Aswin BalaKumaran, ready to collaborate"
+                width={320}
+                height={320}
+                unoptimized
+                className="w-full object-contain drop-shadow-[0_16px_40px_rgba(124,58,237,0.3)]"
+              />
+            </motion.div>
+
             {CONTACT_CARDS.map(({ icon: Icon, label, value, href }) => (
-              <motion.a key={label} href={href} target="_blank" rel="noreferrer" variants={fadeUp}>
-                <GlassCard className="flex items-center gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{label}</p>
-                    <p className="font-medium">{value}</p>
-                  </div>
-                </GlassCard>
-              </motion.a>
+              <motion.div key={label} variants={fadeUp}>
+                <TiltCard maxTilt={5} className="rounded-2xl">
+                  <a href={href} target="_blank" rel="noreferrer" data-cursor-hover className="block">
+                    <GlassCard className="flex items-center gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">{label}</p>
+                        <p className="font-medium">{value}</p>
+                      </div>
+                    </GlassCard>
+                  </a>
+                </TiltCard>
+              </motion.div>
             ))}
           </motion.div>
 
@@ -85,7 +107,7 @@ export function Contact() {
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <GlassCard>
+            <GlassCard hover={false}>
               <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="name">Name</Label>
@@ -93,7 +115,7 @@ export function Contact() {
                     id="name"
                     value={values.name}
                     onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
-                    className="border-white/10 bg-white/5"
+                    className="border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(124,58,237,0.25)]"
                     placeholder="Your name"
                   />
                   {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
@@ -106,7 +128,7 @@ export function Contact() {
                     type="email"
                     value={values.email}
                     onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
-                    className="border-white/10 bg-white/5"
+                    className="border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(124,58,237,0.25)]"
                     placeholder="you@example.com"
                   />
                   {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
@@ -118,25 +140,30 @@ export function Contact() {
                     id="message"
                     value={values.message}
                     onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))}
-                    className="min-h-32 border-white/10 bg-white/5"
+                    className="min-h-32 border-white/10 bg-white/5 transition-shadow duration-300 focus-visible:shadow-[0_0_0_3px_rgba(124,58,237,0.25)]"
                     placeholder="Tell me about your project..."
                   />
                   {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}
                 </div>
 
-                <Button type="submit" size="lg" className="rounded-full">
-                  Send Message
-                </Button>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button type="submit" size="lg" className="w-full rounded-full" data-cursor-hover>
+                    Send Message
+                  </Button>
+                </motion.div>
 
-                {status === "success" && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-2 text-sm text-primary"
-                  >
-                    <CheckCircle2 className="h-4 w-4" /> Opening your email client to send the message.
-                  </motion.p>
-                )}
+                <AnimatePresence>
+                  {status === "success" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 8, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="flex items-center gap-2 text-sm text-primary"
+                    >
+                      <CheckCircle2 className="h-4 w-4" /> Opening your email client to send the message.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </form>
             </GlassCard>
           </motion.div>

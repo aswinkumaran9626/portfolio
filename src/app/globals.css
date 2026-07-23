@@ -4,6 +4,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradient-border-spin {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -133,6 +145,19 @@
   h4 {
     @apply font-heading tracking-tight;
   }
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html {
+    cursor: none;
+  }
+  a,
+  button {
+    cursor: none;
+  }
 }
 
 @layer utilities {
@@ -152,5 +177,58 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--gradient-angle, 0deg),
+      rgba(124, 58, 237, 0.05),
+      rgba(124, 58, 237, 0.6),
+      rgba(79, 70, 229, 0.6),
+      rgba(124, 58, 237, 0.05) 60%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: gradient-border-spin 6s linear infinite;
+  }
+
+  .grain-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-shift 8s steps(8) infinite;
+  }
+}
+
+@keyframes grain-shift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2%, -3%);
+  }
+  30% {
+    transform: translate(3%, 2%);
+  }
+  50% {
+    transform: translate(-3%, 2%);
+  }
+  70% {
+    transform: translate(2%, -2%);
+  }
+  90% {
+    transform: translate(-2%, 3%);
   }
 }

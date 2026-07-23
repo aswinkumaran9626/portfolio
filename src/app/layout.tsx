@@ -43,11 +43,13 @@ export const metadata: Metadata = {
     title: `${SITE.name} — ${SITE.role}`,
     description: SITE.description,
     siteName: SITE.shortName,
+    images: ["/brand/vibronlabz-logo.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} — ${SITE.role}`,
     description: SITE.description,
+    images: ["/brand/vibronlabz-logo.png"],
   },
   robots: {
     index: true,
@@ -65,7 +67,13 @@ export default function RootLayout({
       lang="en"
       className={`dark ${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">{children}</body>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <div
+          aria-hidden="true"
+          className="grain-overlay pointer-events-none fixed inset-0 z-40 opacity-[0.04] mix-blend-overlay"
+        />
+        {children}
+      </body>
     </html>
   );
 }

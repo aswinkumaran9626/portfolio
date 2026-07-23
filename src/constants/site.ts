@@ -3,6 +3,8 @@ export const SITE = {
   shortName: "Aswin Kumaran",
   role: "Full Stack Developer | Mobile App Developer | AI Enthusiast",
   roles: ["Full Stack Developer", "Mobile App Developer", "AI Enthusiast"],
+  company: "Vibronlabz",
+  companyTagline: "Creativity Creates Innovation",
   description:
     "I build modern web applications, mobile apps, business automation systems, and AI-powered solutions.",
   url: "https://aswinbalakumaran.dev",

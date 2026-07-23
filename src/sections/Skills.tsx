@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { SKILL_CATEGORIES } from "@/constants/skills";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { GlassCard } from "@/components/shared/GlassCard";
+import { TiltCard } from "@/components/shared/TiltCard";
 import { SkillBar } from "@/components/shared/SkillBar";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
@@ -26,14 +27,16 @@ export function Skills() {
         >
           {SKILL_CATEGORIES.map((category) => (
             <motion.div key={category.category} variants={fadeUp}>
-              <GlassCard className="h-full">
-                <h3 className="mb-6 text-lg font-semibold">{category.category}</h3>
-                <div className="flex flex-col gap-5">
-                  {category.skills.map((skill) => (
-                    <SkillBar key={skill.name} skill={skill} />
-                  ))}
-                </div>
-              </GlassCard>
+              <TiltCard maxTilt={5} className="h-full rounded-2xl">
+                <GlassCard className="h-full">
+                  <h3 className="mb-6 text-lg font-semibold">{category.category}</h3>
+                  <div className="flex flex-col gap-5">
+                    {category.skills.map((skill) => (
+                      <SkillBar key={skill.name} skill={skill} />
+                    ))}
+                  </div>
+                </GlassCard>
+              </TiltCard>
             </motion.div>
           ))}
         </motion.div>

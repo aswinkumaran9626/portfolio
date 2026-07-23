@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp } from "@/lib/motion";
+import { revealMask } from "@/lib/motion";
 
 interface SectionHeadingProps {
   eyebrow: string;
@@ -18,7 +18,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <motion.div
-      variants={fadeUp}
+      variants={revealMask}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.4 }}
